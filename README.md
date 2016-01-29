@@ -23,7 +23,7 @@ docker run -d -p 8080:80 --name php7-nginx php:7.0
 
 __Bind mount a volume:__
 ```
-docker run -d -v /home/user/workspaces/app:/var/www/public php:7.0
+docker run -d -v /home/user/workspaces/app/:/var/www php:7.0
 ```
 
 
