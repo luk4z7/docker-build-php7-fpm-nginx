@@ -21,7 +21,10 @@ RUN apt-get install -y \
     vim
 
 # Add repository
-RUN PPAPHP7=" ppa:ondrej/php-7.0" && export LC_ALL=en_US.UTF-8 && export LANG=en_US.UTF-8 && add-apt-repository $PPAPHP7
+RUN PPAPHP7=" ppa:ondrej/php-7.0" && \
+    export LC_ALL=en_US.UTF-8 && \
+    export LANG=en_US.UTF-8 && \
+    add-apt-repository $PPAPHP7
 
 RUN apt-get update
 
@@ -63,6 +66,18 @@ RUN apt-get install -y \
     php7.0-curl \
     nginx
 
+# DNS
+ADD resolv.conf /etc/resolv.conf
+
+# Xdebug
+RUN wget https://xdebug.org/files/xdebug-2.4.0rc4.tgz
+RUN tar xzvf xdebug-2.4.0rc4.tgz
+RUN cd xdebug-2.4.0RC4 && phpize
+RUN cd xdebug-2.4.0RC4 && chmod u+x ./configure
+RUN cd xdebug-2.4.0RC4 && ./configure && make && make install
+RUN cp /xdebug-2.4.0RC4/modules/xdebug.so $(php -i | grep extension | awk -F "=> " '{ print $3,$9 }')
+RUN echo "alias php_xdebug='php -dzend_extension=xdebug.so'" >> ~/.bashrc
+
 # Install supervisor
 RUN easy_install supervisor && \
     mkdir -p /var/log/supervisor && \
@@ -82,6 +97,10 @@ RUN chmod 775 /build.sh
 
 # VirtualHost
 ADD ./default /etc/nginx/sites-available/default
+
+# Editing Nginx conf
+RUN sed -i '16s/sendfile on;/sendfile off;/g' /etc/nginx/nginx.conf
+RUN service nginx restart
 
 # DocumentRoot
 RUN mkdir -p /var/www

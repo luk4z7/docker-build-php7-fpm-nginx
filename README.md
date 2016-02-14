@@ -2,6 +2,20 @@
 Ubuntu, php7-fpm and Nginx
 ================================
 
+Configure your dns in file `resolv.conf` before build, default is:
+
+    nameserver 8.8.8.8
+
+------------------
+
+Xdebug is disabled by default, by questions of performance when executing `composer`, for enable xdebug only execute
+one alias created on build, `php_xdebug` ,for example when execute your tests with `phpunit`, because is necessary for 
+to generate your tests coverage.
+
+    php_xdebug vendor/bin/phpunit
+
+------------------
+
 
 __To build execute:__
 ```
