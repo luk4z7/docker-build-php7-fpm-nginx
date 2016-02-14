@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 0.0.2
+
+_Released: 2016-02-14_
+
+* Adding dns file [ resolv.conf ]
+* Adding xdebug extension
+* Disabled mode [ Sendfile on; ] of the nginx
+* Created an alias for executing php with extension
+  xdebug enabled
+
 
 ## 0.0.1
 
