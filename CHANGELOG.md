@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.0.3
+
+_Released: 2016-02-15_
+
+* Adding comand for install snmp
+
+
 ## 0.0.2
 
 _Released: 2016-02-14_
@@ -18,3 +25,4 @@ _Released: 2016-01-29_
 * Initial release.
 * First Commit
 * Add file Dockerfile, build. virtualhost and file README.md
+

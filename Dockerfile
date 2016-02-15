@@ -41,7 +41,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libgmp-dev \
     libpspell-dev \
     libicu-dev \
-    librecode-dev
+    librecode-dev \
+    snmp
 
 # Install PHP7 and Nginx
 RUN apt-get install -y \
