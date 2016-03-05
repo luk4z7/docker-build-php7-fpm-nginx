@@ -21,7 +21,7 @@ RUN apt-get install -y \
     vim
 
 # Add repository
-RUN PPAPHP7=" ppa:ondrej/php-7.0" && \
+RUN PPAPHP7=" ppa:ondrej/php" && \
     export LC_ALL=en_US.UTF-8 && \
     export LANG=en_US.UTF-8 && \
     add-apt-repository $PPAPHP7
@@ -29,7 +29,7 @@ RUN PPAPHP7=" ppa:ondrej/php-7.0" && \
 RUN apt-get update
 
 # Install libs and dependency's
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
     libcurl4-openssl-dev \
     libmcrypt-dev \
     libxml2-dev \
@@ -45,9 +45,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     snmp
 
 # Install PHP7 and Nginx
-RUN apt-get install -y \
+RUN apt-get install -y --force-yes \
     php7.0-fpm \
     php7.0-cli \
+    php7.0-xsl \
     php7.0-common \
     php7.0-json \
     php7.0-opcache \
@@ -78,6 +79,24 @@ RUN cd xdebug-2.4.0RC4 && chmod u+x ./configure
 RUN cd xdebug-2.4.0RC4 && ./configure && make && make install
 RUN cp /xdebug-2.4.0RC4/modules/xdebug.so $(php -i | grep extension | awk -F "=> " '{ print $3,$9 }')
 RUN echo "alias php_xdebug='php -dzend_extension=xdebug.so'" >> ~/.bashrc
+
+# phpunit
+RUN wget https://phar.phpunit.de/phpunit.phar
+RUN chmod +x phpunit.phar
+RUN sudo mv phpunit.phar /usr/local/bin/phpunit
+RUN phpunit --version
+
+# Install composer
+RUN wget https://getcomposer.org/download/1.0.0-alpha11/composer.phar
+RUN chmod +x composer.phar
+RUN sudo mv composer.phar /usr/local/bin/composer
+
+# Install libs/var_dumper
+RUN composer global require symfony/var-dumper
+
+RUN cd $( php -i | grep php.ini | awk -F "=> " '{ print $2,$9 }') && PHPINI=$( pwd )/php.ini \
+    && sed -i '660s/auto_prepend_file =/ /g' $PHPINI \
+    && sed -i '660a auto_prepend_file = /root/.composer/vendor/autoload.php' $PHPINI
 
 # Install supervisor
 RUN easy_install supervisor && \
@@ -112,6 +131,9 @@ RUN echo "<?php phpinfo(); ?>" > /var/www/public/index.php
 
 # Configure PATH
 RUN export PATH=/usr/sbin:$PATH
+
+# Export xterm for using commands with "clear"
+RUN export TERM=xterm
 
 # Execution shell on run container
 CMD ["./build.sh"]

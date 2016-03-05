@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 0.0.4
+
+_Released: 2016-03-05_
+
+* Modified repository ppa for php 7
+* Forced installation apt non interactive
+* Install extension xsl for PHP
+* Install phpunit global
+* Install composer and var_dumper
+* export variable TERM
+
+
 ## 0.0.3
 
 _Released: 2016-02-15_
