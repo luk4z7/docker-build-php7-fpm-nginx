@@ -46,6 +46,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
 
 # Install PHP7 and Nginx
 RUN apt-get install -y --force-yes \
+    php7.0 \
+    php7.0-cgi \
     php7.0-fpm \
     php7.0-cli \
     php7.0-xsl \
@@ -54,7 +56,6 @@ RUN apt-get install -y --force-yes \
     php7.0-opcache \
     php7.0-mysql \
     php7.0-phpdbg \
-    php7.0-dbg \
     php7.0-intl \
     php7.0-gd \
     php7.0-imap \
