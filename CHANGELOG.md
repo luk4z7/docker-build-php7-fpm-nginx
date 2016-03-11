@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.0.5
+
+_Released: 2016-03-10_
+
+* Removed php7.0-dbg of instalation
+* Add new packages php7.0-cgi and php7.0
+
+
 ## 0.0.4
 
 _Released: 2016-03-05_
