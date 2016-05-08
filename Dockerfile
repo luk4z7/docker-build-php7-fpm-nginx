@@ -93,11 +93,11 @@ RUN chmod +x composer.phar
 RUN sudo mv composer.phar /usr/local/bin/composer
 
 # Install libs/var_dumper
-RUN composer global require symfony/var-dumper
+RUN mkdir -p /var/www/.composer
+RUN composer global --no-interaction --working-dir=/var/www/.composer require symfony/var-dumper
 
-RUN cd $( php -i | grep php.ini | awk -F "=> " '{ print $2,$9 }') && PHPINI=$( pwd )/php.ini \
-    && sed -i '660s/auto_prepend_file =/ /g' $PHPINI \
-    && sed -i '660a auto_prepend_file = /root/.composer/vendor/autoload.php' $PHPINI
+RUN sed -i '660s/auto_prepend_file =/ /g' /etc/php/7.0/fpm/php.ini \
+    && sed -i '660a auto_prepend_file = /var/www/.composer/vendor/autoload.php' /etc/php/7.0/fpm/php.ini
 
 # Install supervisor
 RUN easy_install supervisor && \
@@ -131,10 +131,10 @@ RUN mkdir -p /var/www/public
 RUN echo "<?php phpinfo(); ?>" > /var/www/public/index.php
 
 # Configure PATH
-RUN export PATH=/usr/sbin:$PATH
+RUN echo export PATH=/usr/sbin:$PATH >> ~/.bashrc
 
-# Export xterm for using commands with "clear"
-RUN export TERM=xterm
+# Export xterm
+RUN echo export TERM=xterm >> ~/.bashrc
 
 # Execution shell on run container
 CMD ["./build.sh"]
