@@ -1,5 +1,15 @@
 # CHANGELOG
 
+
+## 0.0.6
+
+_Released: 2016-05-08_
+
+* Removing expression using AWK for php.ini
+* Changed folder of composer for /var/www/.composer
+* Inserted variable environment for user file .bashrc
+
+
 ## 0.0.5
 
 _Released: 2016-03-10_
