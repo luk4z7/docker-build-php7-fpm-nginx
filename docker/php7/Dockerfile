@@ -129,7 +129,7 @@ RUN echo export PATH=/usr/sbin:$PATH >> ~/.bashrc
 
 # Export xterm
 RUN echo export TERM=xterm >> ~/.bashrc
-
+ 
 # Execution shell on run container
 CMD ["./build.sh"]
 
