@@ -93,11 +93,11 @@ RUN chmod +x composer.phar
 RUN sudo mv composer.phar /usr/local/bin/composer
 
 # Install libs/var_dumper
-RUN mkdir -p /var/www/.composer
-RUN composer global --no-interaction --working-dir=/var/www/.composer require symfony/var-dumper
+RUN mkdir -p /var/.composer
+RUN composer global --no-interaction --working-dir=/var/.composer require symfony/var-dumper
 
 RUN sed -i '660s/auto_prepend_file =/ /g' /etc/php/7.0/fpm/php.ini \
-    && sed -i '660a auto_prepend_file = /var/www/.composer/vendor/autoload.php' /etc/php/7.0/fpm/php.ini
+    && sed -i '660a auto_prepend_file = /var/.composer/vendor/autoload.php' /etc/php/7.0/fpm/php.ini
 
 # Install supervisor
 RUN easy_install supervisor && \
@@ -124,7 +124,6 @@ RUN sed -i '16s/sendfile on;/sendfile off;/g' /etc/nginx/nginx.conf
 RUN service nginx restart
 
 # DocumentRoot
-RUN mkdir -p /var/www
 RUN mkdir -p /var/www/public
 
 # Hello World
