@@ -1,53 +1,60 @@
 
-Ubuntu, php7-fpm and Nginx
-================================
+# Ubuntu, php7-fpm and Nginx
 
-Configure your dns in file `resolv.conf` before build, default is:
+### Getting started
 
-    nameserver 8.8.8.8
-
-------------------
-
-Xdebug is disabled by default, by questions of performance when executing `composer`, for enable xdebug only execute
-one alias created on build, `php_xdebug` ,for example when execute your tests with `phpunit`, because is necessary for 
-to generate your tests coverage.
-
-    php_xdebug vendor/bin/phpunit
-
-------------------
-
-
-__To build execute:__
-```
-docker build -t php:7.0 .
+Clone the repository in folder do you prefer
+```bash
+cd /var/www
+git clone https://github.com/luk4z7/docker-build-php7-fpm-nginx
 ```
 
+Configure your dns if necessary in file `resolv.conf` before build, default is:
 
-__Lauching a container from your new image:__
-```
-docker run -d -P --name php7-nginx php:7.0
-```
-
-
-__Binding to a specific port:__
-```
-docker run -d -p 8080:80 --name php7-nginx php:7.0
+```bash
+nameserver 8.8.8.8
 ```
 
+**Execute the file `init.sh` for up the docker containers**
 
-__Bind mount a volume:__
+```bash
+https://github.com/luk4z7/docker-build-php7-fpm-nginx 
+Environment Ubuntu, php7-fpm and nginx 
+ 
+     _            _                  _           _ _     _ 
+  __| | ___   ___| | _____ _ __     | |__  _   _(_) | __| |
+ / _` |/ _ \ / __| |/ / _ \ '__|____| '_ \| | | | | |/ _` |
+| (_| | (_) | (__|   <  __/ | |_____| |_) | |_| | | | (_| |
+ \__,_|\___/ \___|_|\_\___|_|       |_.__/ \__,_|_|_|\__,_|
+                                                           
+php7, nginx 
+
+DOCKER
+Generate new containers ? [ 1 ] 
+Delete all containers ?   [ 2 ] 
+Start new build ?         [ 3 ]
 ```
-docker run -d -v /home/user/workspaces/app/:/var/www php:7.0
+
+First step
+```bash
+Start new build          [ 3 ]
 ```
 
-
-__Access a shell:__
+Second step
+```bash
+Generate new containers  [ 1 ]
 ```
-docker run -it --name php-nginx-cli php:7.0 /bin/bash
+
+Access log of an single container
+```bash
+docker logs php7 -f
 ```
 
--------
+Xdebug is disabled by default, by questions of performance when executing `composer`, for enable xdebug only execute one alias created on build, `php_xdebug`, for example when execute your tests with `phpunit`, because is necessary for to generate your tests coverage.
 
+```php
+php_xdebug vendor/bin/phpunit
+```
 
 #### CHANGELOG
 
