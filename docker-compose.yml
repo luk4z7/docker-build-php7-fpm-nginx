@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  php7:
+    container_name: php7
+    build: ./docker/php7
+    volumes:
+     - ./:/var/www/
+    ports:
+     - "0.0.0.0:8080:80"
