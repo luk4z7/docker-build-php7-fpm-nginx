@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 0.0.8
+
+_Released: 2017-12-01_
+
+* Add licence for projec
+* Refactory the readme file
+   - Include the Getting started and examples for running
+      the project.
+* Including new structure
+   - Created a folder with docker name and inserted into folder the
+      Dockerfile files and too much inside it.
+   - Changed the Dockerfile with new approaches, send the "daemon
+      off" for the nginx config file and changed the link for
+      download of the composer.
+* Create file manager for container
+   - Add docker-compose.yml
+* Changed init.sh file with new informations
+
+
 ## 0.0.5
 
 _Released: 2016-03-10_
